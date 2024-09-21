@@ -1,0 +1,64 @@
+#formulario{
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+    margin: 2%;
+}
+
+input{
+    width: 100%;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 2% ;
+}
+
+/* Estilos para el botón "REGISTRAR" */
+input[type="submit"] {
+    background-color: black; /* Color de fondo */
+    color: white; /* Color del texto */
+    width: 15%;
+    padding: 10px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño del texto */
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #45a049; /* Cambio de color al pasar el cursor */
+  }
+  
+  /* Estilos para el botón "RESET" */
+  input[type="reset"] {
+    background-color: #f44336; /* Color de fondo */
+    color: white; /* Color del texto */
+    width: 15%;
+    padding: 10px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño del texto */
+  }
+  
+  input[type="reset"]:hover {
+    background-color: #d32f2f; /* Cambio de color al pasar el cursor */
+  }
+  
+  fieldset{
+
+    background: rgba(252, 252, 252, 0.8);
+    margin: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    
+  }
+
+    legend{
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+    }

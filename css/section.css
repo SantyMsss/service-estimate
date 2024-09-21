@@ -1,0 +1,134 @@
+#Titulo{
+        color: white;
+        font-size: 70px;
+}
+
+section{
+
+    padding: 100px 0;
+    text-align: center;
+    
+}
+
+
+#packs{
+    display: flex;
+    justify-content: flex-start;
+    padding: 50px 40px 70px 40px;
+    border-radius: 20px;
+    background-color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+
+.infoPacks{
+    
+    background-color: aliceblue;
+    border-radius: 20px;
+    border: 3px solid black;  
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.infoPacks small {
+    font-size: 12px; /* Ajusta el tamaño del texto pequeño */
+}
+
+
+
+.infoPacks h3 {
+    font-size: 20px; /* Ajusta el tamaño del texto */
+    text-align: left;
+}
+
+#aereo{
+    background-color: red;
+    color: black;
+    border-radius: 20px;
+    padding: 10px 40px 10px 40px;
+    margin: 0% 5% 0% 0%;
+    text-align: left;
+   
+    
+}
+
+#aereo:hover{
+    background-color: cyan;
+   
+}
+
+
+#terrestre{
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 40px 10px 40px;
+    margin: 0% 5% 0% 0%;
+    text-align: left;
+    
+}
+
+#terrestre:hover{
+    background-color: cyan;
+    color: black;
+}
+
+#ptipos{
+
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+    margin-right: 20%;
+
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    margin-left: 10px; /* Espacio entre el texto y el logo */
+    font-size: 35px;
+}
+
+#moreinfo{
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 40px 10px 40px;
+    margin-bottom: 10%;
+
+}
+
+#moreinfo:hover{
+    background-color: red;
+
+}
+
+#equipo {
+    background-color: black;
+    text-align: center;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    margin-top: 10%;
+}
+
+#equipo ul {
+    list-style-type: none; /* Quita las decoraciones de los puntos */
+    padding: 0; /* Elimina el relleno predeterminado de la lista */
+}
+
+#equipo ul li {
+    text-align: center; /* Centra el texto de cada elemento li */
+}
+
+
+
+
+
+
