@@ -18,7 +18,7 @@ function addServiceType(event) {
   newSelect.setAttribute("required", true);
   
   const options = `
-      <option value="" selected disabled>Opción</option>
+      <option value="" selected disabled>Option</option>
       <option value="living-room" data-price="30">Living room - $30</option>
       <option value="kitchen" data-price="40">Kitchen - $40</option>
       <option value="entry" data-price="30">Entry - $30</option>
@@ -84,11 +84,12 @@ if (firstSelect) {
 
 
 
-function generatePDF() {
+
+document.getElementById('generatePdfBtn').addEventListener('click', function() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // Obtener los valores de los campos
+  // Capturar los datos del formulario
   const customer = document.getElementById('customer').value;
   const address = document.getElementById('Address').value;
   const city = document.getElementById('city').value;
@@ -99,46 +100,77 @@ function generatePDF() {
   const zip = document.getElementById('zip').value;
   const time = document.getElementById('time').value;
   const attendant = document.getElementById('attendant').value;
-  const total = document.getElementById('total').value;
+
+  // Capturar los detalles del servicio
   const pets = document.getElementById('pets').value;
-  const keyReceived = document.getElementById('key').value;
-  const preferredServiceDay = document.getElementById('serviceday').value;
+  const keyReceived = document.getElementById('key').options[document.getElementById('key').selectedIndex].text;
+  const preferredServiceDay = document.getElementById('serviceday').options[document.getElementById('serviceday').selectedIndex].text;
   const serviceStartDay = document.getElementById('servicestartday').value;
-  const windowOfArrival = document.getElementById('windowOfArrival').value;
+  const windowOfArrival = document.getElementById('windowOfArrival').options[document.getElementById('windowOfArrival').selectedIndex].text;
   const squareFootage = document.getElementById('squareFootage').value;
   const bathrooms = document.getElementById('bathrooms').value;
   const bedrooms = document.getElementById('bedrooms').value;
   const frequency = document.getElementById('frequency').value;
   const serviceFee = document.getElementById('servicefee').value;
   const tax = document.getElementById('tax').value;
+  const total = document.getElementById('total').value;
 
-  // Agregar contenido al PDF
-  doc.text(`Customer: ${customer}`, 10, 10);
-  doc.text(`Address: ${address}`, 10, 20);
-  doc.text(`City: ${city}`, 10, 30);
-  doc.text(`Phone: ${phone}`, 10, 40);
-  doc.text(`Email: ${email}`, 10, 50);
-  doc.text(`Estimate Date: ${estimateDate}`, 10, 60);
-  doc.text(`Lead Source: ${leadSource}`, 10, 70);
-  doc.text(`Zip: ${zip}`, 10, 80);
-  doc.text(`Time: ${time}`, 10, 90);
-  doc.text(`Attendant: ${attendant}`, 10, 100);
-  doc.text(`Total: $${total}`, 10, 110);
-  doc.text(`Pets: ${pets}`, 10, 120);
-  doc.text(`Key Received: ${keyReceived}`, 10, 130);
-  doc.text(`Preferred Service Day: ${preferredServiceDay}`, 10, 140);
-  doc.text(`Service Start Day: ${serviceStartDay}`, 10, 150);
-  doc.text(`Window of Arrival: ${windowOfArrival}`, 10, 160);
-  doc.text(`Square Footage: ${squareFootage}`, 10, 170);
-  doc.text(`Number of Bathrooms: ${bathrooms}`, 10, 180);
-  doc.text(`Number of Bedrooms: ${bedrooms}`, 10, 190);
-  doc.text(`Frequency of Service: ${frequency}`, 10, 200);
-  doc.text(`Service Fee: $${serviceFee}`, 10, 210);
-  doc.text(`Tax: $${tax}`, 10, 220);
+  // Capturar todos los servicios seleccionados
+  const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
+  let servicesText = '';
+  serviceTypes.forEach((service, index) => {
+      const serviceName = service.options[service.selectedIndex].text;
+      servicesText += `${index + 1}. ${serviceName}\n`; // Añadir un número de orden para cada servicio
+  });
 
-  // Descargar el PDF
-  doc.save('registro.pdf');
-}
+  // Generar el contenido del PDF
+  doc.setFontSize(14);
+  doc.text('---------INFO SERVICE--------', 10, 10);
+  doc.setFontSize(12);
+  doc.text(`Customer: ${customer}`, 10, 20);
+  doc.text(`Address: ${address}`, 10, 30);
+  doc.text(`City: ${city}`, 10, 40);
+  doc.text(`Phone: ${phone}`, 10, 50);
+  doc.text(`Email: ${email}`, 10, 60);
+  doc.text(`Estimate Date: ${estimateDate}`, 10, 70);
+  doc.text(`Lead Source: ${leadSource}`, 10, 80);
+  doc.text(`Zip: ${zip}`, 10, 90);
+  doc.text(`Time: ${time}`, 10, 100);
+  doc.text(`Attendant: ${attendant}`, 10, 110);
+
+  doc.setFontSize(14);
+  doc.text('---------TYPE OF SERVICE------', 10, 120);
+  doc.setFontSize(12);
+  doc.text(servicesText, 10, 130); // Añadir todos los servicios seleccionados
+
+  doc.setFontSize(14);
+  doc.text('---------SERVICE DETAILS------', 10, 150);
+  doc.setFontSize(12);
+  doc.text(`Pets: ${pets}`, 10, 160);
+  doc.text(`Key Received: ${keyReceived}`, 10, 170);
+  doc.text(`Preferred Service Day: ${preferredServiceDay}`, 10, 180);
+  doc.text(`Service Start Day: ${serviceStartDay}`, 10, 190);
+  doc.text(`Window of Arrival: ${windowOfArrival}`, 10, 200);
+  doc.text(`Square Footage: ${squareFootage}`, 10, 210);
+  doc.text(`Bathrooms: ${bathrooms}`, 10, 220);
+  doc.text(`Bedrooms: ${bedrooms}`, 10, 230);
+  doc.text(`Frequency of Service: ${frequency}`, 10, 240);
+  doc.text(`Service Fee: $${serviceFee}`, 10, 250);
+  doc.text(`Tax: $${tax}`, 10, 260);
+
+  doc.setFontSize(14);
+  doc.text('---------TOTAL------', 10, 270);
+  doc.setFontSize(12);
+  doc.text(`Total: $${total}`, 10, 280);
+
+  // Guardar el PDF
+  doc.save('factura.pdf');
+});
+
+
+
+
+
 
 // Agregar evento al botón de registrar
 document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
@@ -168,4 +200,15 @@ function getSelectedServices() {
   });
 
   return selectedServices.join(', ');
+}
+
+
+function captureSection() {
+  const section = document.querySelector('section.container.my-5');
+  html2canvas(section).then(canvas => {
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL(); 
+    link.download = 'form-capture.png'; 
+    link.click();
+  });
 }
