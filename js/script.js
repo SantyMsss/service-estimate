@@ -83,11 +83,14 @@ if (firstSelect) {
 }
 
 
-
-
-document.getElementById('generatePdfBtn').addEventListener('click', function() {
+document.getElementById('generatePdfBtn').addEventListener('click', function () {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const doc = new jsPDF({
+    unit: "mm",
+    format: "a4",
+    orientation: "portrait",
+    compress: true // Asegúrate de que esta opción esté habilitada
+  });
 
   // Capturar los datos del formulario
   const customer = document.getElementById('customer').value;
@@ -119,53 +122,51 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
   const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
   let servicesText = '';
   serviceTypes.forEach((service, index) => {
-      const serviceName = service.options[service.selectedIndex].text;
-      servicesText += `${index + 1}. ${serviceName}\n`; // Añadir un número de orden para cada servicio
+    const serviceName = service.options[service.selectedIndex].text;
+    servicesText += `${index + 1}. ${serviceName}\n`;
   });
 
-  // Generar el contenido del PDF
-  doc.setFontSize(14);
-  doc.text('---------INFO SERVICE--------', 10, 10);
-  doc.setFontSize(12);
-  doc.text(`Customer: ${customer}`, 10, 20);
-  doc.text(`Address: ${address}`, 10, 30);
-  doc.text(`City: ${city}`, 10, 40);
-  doc.text(`Phone: ${phone}`, 10, 50);
-  doc.text(`Email: ${email}`, 10, 60);
-  doc.text(`Estimate Date: ${estimateDate}`, 10, 70);
-  doc.text(`Lead Source: ${leadSource}`, 10, 80);
-  doc.text(`Zip: ${zip}`, 10, 90);
-  doc.text(`Time: ${time}`, 10, 100);
-  doc.text(`Attendant: ${attendant}`, 10, 110);
+  // Cargar la imagen base
+  const img = new Image();
+  img.src = 'img/inv2.png'; // Cambia la ruta si es necesario
 
-  doc.setFontSize(14);
-  doc.text('---------TYPE OF SERVICE------', 10, 120);
-  doc.setFontSize(12);
-  doc.text(servicesText, 10, 130); // Añadir todos los servicios seleccionados
+  img.onload = function () {
+    // Añadir la imagen al PDF
+    doc.addImage(img, 'PNG', 0, 0, 210, 297); // Tamaño A4 en mm
 
-  doc.setFontSize(14);
-  doc.text('---------SERVICE DETAILS------', 10, 150);
-  doc.setFontSize(12);
-  doc.text(`Pets: ${pets}`, 10, 160);
-  doc.text(`Key Received: ${keyReceived}`, 10, 170);
-  doc.text(`Preferred Service Day: ${preferredServiceDay}`, 10, 180);
-  doc.text(`Service Start Day: ${serviceStartDay}`, 10, 190);
-  doc.text(`Window of Arrival: ${windowOfArrival}`, 10, 200);
-  doc.text(`Square Footage: ${squareFootage}`, 10, 210);
-  doc.text(`Bathrooms: ${bathrooms}`, 10, 220);
-  doc.text(`Bedrooms: ${bedrooms}`, 10, 230);
-  doc.text(`Frequency of Service: ${frequency}`, 10, 240);
-  doc.text(`Service Fee: $${serviceFee}`, 10, 250);
-  doc.text(`Tax: $${tax}`, 10, 260);
+    // Añadir los textos del formulario a la imagen
+    doc.setFontSize(12);
+    doc.text(`Customer: ${customer}`, 20, 80);
+    doc.text(`Address: ${address}`, 20, 85);
+    doc.text(`City: ${city}`, 20, 90);
+    doc.text(`Phone: ${phone}`, 20, 95);
+    doc.text(`Email: ${email}`, 20, 100);
+    doc.text(`Estimate Date: ${estimateDate}`, 20, 105);
+    doc.text(`Lead Source: ${leadSource}`, 120, 80);
+    doc.text(`Zip: ${zip}`, 120, 85);
+    doc.text(`Time: ${time}`, 120, 90);
+    doc.text(`Attendant: ${attendant}`, 120, 95);
+    doc.text(servicesText, 20, 140);
+    doc.text(`Pets: ${pets}`, 20, 220);
+    doc.text(`Key Received: ${keyReceived}`, 20, 225);
+    doc.text(`Preferred Service Day: ${preferredServiceDay}`, 20, 230);
+    doc.text(`Service Start Day: ${serviceStartDay}`, 20, 235);
+    doc.text(`Window of Arrival: ${windowOfArrival}`, 20, 240);
+    doc.text(`Square Footage: ${squareFootage}`, 20, 245);
+    doc.text(`Bathrooms: ${bathrooms}`, 120, 220);
+    doc.text(`Bedrooms: ${bedrooms}`, 120, 225);
+    doc.text(`Frequency of Service: ${frequency}`, 120, 230);
+    doc.text(`Service Fee: $${serviceFee}`, 120, 235);
+    doc.text(`Tax: $${tax}`, 120, 240);
+    doc.text(`$${total}`, 142, 253);
 
-  doc.setFontSize(14);
-  doc.text('---------TOTAL------', 10, 270);
-  doc.setFontSize(12);
-  doc.text(`Total: $${total}`, 10, 280);
-
-  // Guardar el PDF
-  doc.save('factura.pdf');
+    // Guardar el PDF
+    doc.save('invoice.pdf');
+  }; 
 });
+
+
+
 
 
 
