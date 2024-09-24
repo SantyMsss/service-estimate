@@ -51,9 +51,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#contacto">Contacto</a>
-            </li>
+            
           </ul>
         </div>
       </div>
@@ -61,7 +59,7 @@
 
     <section class="container my-5" id="fondo" >
       
-      <fieldset>
+      <fieldset id="mainfieldset">
         <legend>
           <h2 class="text-center">INFO SERVICE</h2>
         </legend>
@@ -135,7 +133,7 @@
 
           <section class="container my-0">
             
-            <fieldset>
+            <fieldset id="fieldset2">
               <legend>
                 <h2 class="text-center">TYPE OF SERVICE</h2>
               </legend>
@@ -143,7 +141,7 @@
               <!-- Contenedor para los combobox -->
               <div id="serviceTypeContainer">
                 <div class="mb-3 service-type-wrapper">
-                    <label for="serviceType1" class="form-label">Service Type 1</label>
+                    <label for="serviceType1" class="form-label">Service Type</label>
                     <select class="form-select" id="serviceType" name="serviceType" required>
                       <option value="" selected disabled>Option</option>
                     <option value="living-room" data-price="30">Living room - $30</option>
@@ -167,7 +165,7 @@
             </fieldset>
 
             <section class="container my-0">
-              <fieldset>
+              
                   <legend>
                       <h2 class="text-center">SERVICE DETAILS</h2>
                   </legend>
@@ -256,6 +254,12 @@
                           <label for="tax" class="form-label">Tax</label>
                           <input type="number" class="form-control" id="tax" name="tax" placeholder="#" required />
                       </div>
+
+                      <!-- SUBTOTAL -->
+                      <div class="col-md-4">
+                        <label for="subtotal" class="form-label">Subtotal</label>
+                        <input type="text" class="form-control" id="subtotal" name="subtotal" value="0" disabled />
+                      </div>
                       
                      <!-- TOTAL -->
                     <div class="col-md-4">
@@ -266,7 +270,7 @@
 
 
                   </div>
-              </fieldset>
+              
           </section>
           
           <div class="col-12">
@@ -296,6 +300,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+
+
+
+
+    <footer>
+
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <p>Service Estimate by Santy Martinez &copy; 2024</p>
+          </div>
+        </div>
+      </div>
+
+    </footer>
 
   </body>
 </html>

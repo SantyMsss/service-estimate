@@ -69,7 +69,12 @@ function updateTotal() {
       }
   });
 
-  document.getElementById('total').value = total; // Actualizar el campo total
+  const tax = total * 0.20; // Calcular el 20% de tax
+  const grandTotal = total + tax; // Total = subtotal + tax
+
+  document.getElementById('subtotal').value = total.toFixed(2); // Actualizar el subtotal con 2 decimales
+  document.getElementById('tax').value = tax.toFixed(2); // Actualizar el tax con 2 decimales
+  document.getElementById('total').value = grandTotal.toFixed(2); // Actualizar el total con 2 decimales
 }
 
 // Agregar eventos a los botones
@@ -115,6 +120,9 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const bedrooms = document.getElementById('bedrooms').value;
   const frequency = document.getElementById('frequency').value;
   const serviceFee = document.getElementById('servicefee').value;
+
+  // Capturar el subtotal, tax y total
+  const subtotal = document.getElementById('subtotal').value;
   const tax = document.getElementById('tax').value;
   const total = document.getElementById('total').value;
 
@@ -157,16 +165,13 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Bedrooms: ${bedrooms}`, 120, 225);
     doc.text(`Frequency of Service: ${frequency}`, 120, 230);
     doc.text(`Service Fee: $${serviceFee}`, 120, 235);
-    doc.text(`Tax: $${tax}`, 120, 240);
-    doc.text(`$${total}`, 142, 253);
+    doc.text(`Subtotal: $${subtotal}`, 120, 240); // Mostrar el subtotal en el PDF
+    doc.text(`Tax: $${tax}`, 120, 245); // Mostrar el tax en el PDF
+    doc.text(`$${total}`, 142, 253); // Mostrar el total en el PDF
 
-    // Guardar el PDF
-    doc.save('invoice.pdf');
-  }; 
+    doc.save(`invoice_${customer}_${estimateDate}.pdf`);
+  };
 });
-
-
-
 
 
 

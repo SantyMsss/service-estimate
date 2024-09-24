@@ -54,7 +54,24 @@ input[type="submit"] {
     margin: 5%;
     margin-top: 0%;
     margin-bottom: 0%;
+
     
+  }
+
+
+  #mainfieldset{
+
+    border-radius: 100px;
+    padding: 5%;
+
+  }
+
+  #fieldset2{
+
+    border-radius: 30px;
+    padding: 5%;
+
+
   }
 
     legend{
