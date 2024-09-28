@@ -66,14 +66,21 @@ function removeServiceType(event) {
 
 // Función para actualizar el total
 function updateTotal() {
-  // Obtener el subtotal del campo de entrada ingresado por el usuario
+  // Obtener el subtotal ingresado por el usuario
   const subtotalInput = document.getElementById('subtotal').value;
-  const subtotal = parseFloat(subtotalInput);
+  let subtotal = parseFloat(subtotalInput);
 
- 
+
+  // Obtener el porcentaje de descuento seleccionado
+  const discountSelect = document.getElementById('discount');
+  const discountPercentage = parseFloat(discountSelect.value);
+
+  // Calcular el descuento
+  const discountAmount = subtotal * (discountPercentage / 100);
+  subtotal -= discountAmount; // Restar el descuento al subtotal
 
   // Calcular el impuesto del 7%
-  const tax = subtotal * 0.075; // 7% de impuesto
+  const tax = subtotal * 0.075; // 7,5% de impuesto
   let grandTotal = subtotal + tax; // Total = subtotal + impuesto
 
   // Verificar si el método de pago es con tarjeta de crédito y agregar el 3.5% al total
@@ -92,9 +99,12 @@ function updateTotal() {
 // Evento para detectar cambios en el subtotal
 document.getElementById('subtotal').addEventListener('input', updateTotal);
 
+// Evento para detectar cambios en el porcentaje de descuento
+document.getElementById('discount').addEventListener('change', updateTotal);
 
 // Evento para detectar cambios en el método de pago
 document.getElementById('servicefee').addEventListener('change', updateTotal);
+
 
 // Agregar eventos a los botones
 document.getElementById("addServiceButton").addEventListener("click", addServiceType);
@@ -151,6 +161,11 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const tax = document.getElementById('tax').value;
   const total = document.getElementById('total').value;
 
+  // Capturar el descuento
+  const discountSelect = document.getElementById('discount');
+  const discountPercentage = parseFloat(discountSelect.value);
+  const discountAmount = subtotal * (discountPercentage / 100);
+
    // Capturar todos los servicios seleccionados
    const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
    let servicesText = '';
@@ -175,7 +190,7 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
 
   // Cargar la imagen base
   const img = new Image();
-  img.src = 'img/inv3.png'; // Cambia la ruta si es necesario
+  img.src = 'img/estimate1.png'; // Cambia la ruta si es necesario
 
   img.onload = function () {
     // Añadir la imagen al PDF
@@ -214,14 +229,14 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Bedrooms: ${bedrooms}`, 120, 150);
     doc.text(`Frequency of Service: ${frequency}`, 120, 155);
    
-    
+    doc.text(`Discount (${discountPercentage}%): -$${discountAmount.toFixed(2)}`, 120, 225); // Mostrar el descuento
     doc.text(`Subtotal: $${subtotal}`, 120, 220);
-    doc.text(`Tax: $${tax}`, 120, 225);
-    doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 230); // Mostrar el 3.5% si aplica
+    doc.text(`Tax: $${tax}`, 120, 230);
+    doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 235); // Mostrar el 3.5% si aplica
     doc.text(`$${total}`, 142, 253);
 
     // Guardar el PDF
-    doc.save(`invoice_${customer}_${estimateDate}.pdf`);
+    doc.save(`estimate_${customer}_${estimateDate}.pdf`);
   };
 });
 
