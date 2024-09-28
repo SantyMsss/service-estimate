@@ -3,14 +3,14 @@
   <head>
     <!-- Metadatos -->
     <meta charset="utf-8" />
-    <meta name="author" content="Jane Doe" />
-    <meta name="description" content="Agencia de Turismo S.A" />
+    <meta name="author" content="Santy Martinez" />
+    <meta name="description" content="Estimate Service" />
     <meta name="keywords" content="HTML, CSS, JavaScript" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Titulo -->
     <title>SERVICE ESTIMATE</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="img/icono.png" />
+    <link rel="icon" type="image/x-icon" href="img/company.jpeg" />
     <!-- CSS -->
     <link href="css/styles.css" rel="stylesheet" />
 
@@ -143,14 +143,19 @@
                 <div class="mb-3 service-type-wrapper">
                     <label for="serviceType1" class="form-label">Service Type</label>
                     <select class="form-select" id="serviceType" name="serviceType" required>
-                      <option value="" selected disabled>Option</option>
-                    <option value="living-room" data-price="30">Living room - $30</option>
-                    <option value="kitchen" data-price="40">Kitchen - $40</option>
-                    <option value="entry" data-price="30">Entry - $30</option>
-                    <option value="hallbath" data-price="20">Hallbath - $20</option>
-                    <option value="bedroom" data-price="50">Bedroom - $50</option>
-                    <option value="bathroom" data-price="10">Bathroom - $10</option>
-                    <option value="laundry" data-price="20">Laundry - $20</option>
+                    <option value="" selected disabled>Option</option>
+                      <!-- Nuevas opciones añadidas al principio -->
+                    <option value="basic-cleaning" >Basic Cleaning</option>
+                    <option value="full-cleaning" >Full Cleaning</option>
+                    <option value="office" >Office</option>
+                    <option value="garage" >Garage</option>
+                    <option value="living-room" >Living room</option>
+                    <option value="kitchen" >Kitchen</option>
+                    <option value="entry" >Entry</option>
+                    <option value="hallbath" >Hallbath</option>
+                    <option value="bedroom" >Bedroom</option>
+                    <option value="bathroom" >Bathroom</option>
+                    <option value="laundry" >Laundry</option>
                     </select>
                 </div>
               </div>
@@ -165,113 +170,215 @@
             </fieldset>
 
             <section class="container my-0">
-              
-                  <legend>
-                      <h2 class="text-center">SERVICE DETAILS</h2>
-                  </legend>
+              <legend>
+                  <h2 class="text-center">SERVICE DETAILS</h2>
+              </legend>
           
-                  <div class="row">
-                      <!-- PETS -->
-                      <div class="col-md-4">
-                          <label for="pets" class="form-label">Pets</label>
-                          <input type="text" class="form-control" id="pets" name="pets" placeholder="Pets" required />
-                      </div>
+              <div class="row">
+                  <!-- LIVING ROOM -->
+                  <div class="col-md-4">
+                      <label for="livingRoom" class="form-label">Living Room</label>
+                      <select class="form-select" id="livingRoom" name="livingRoom" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                  </div>
           
-                      <!-- KEY RECEIVED -->
-                      <div class="col-md-4">
-                          <label for="key" class="form-label">Key Received</label>
-                          <select class="form-select" id="key" name="key" required>
-                              <option value="" selected disabled>Choose...</option>
-                              <option value="yes">Yes</option>
-                              <option value="no">No</option>
-                          </select>
-                      </div>
+                  <!-- KITCHEN -->
+                  <div class="col-md-4">
+                      <label for="kitchen" class="form-label">Kitchen</label>
+                      <select class="form-select" id="kitchen" name="kitchen" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                  </div>
           
-                      <!-- PREFERRED SERVICE DAY -->
-                      <div class="col-md-4">
-                          <label for="serviceday" class="form-label">Preferred Service Day</label>
-                          <select class="form-select" id="serviceday" name="serviceday" required>
-                              <option value="" selected disabled>Choose...</option>
-                              <option value="monday">Monday</option>
-                              <option value="tuesday">Tuesday</option>
-                              <option value="wednesday">Wednesday</option>
-                              <option value="thursday">Thursday</option>
-                              <option value="friday">Friday</option>
-                              <option value="saturday">Saturday</option>
-                              <option value="sunday">Sunday</option>
-                          </select>
-                      </div>
+                  <!-- ENTRY -->
+                  <div class="col-md-4">
+                      <label for="entry" class="form-label">Entry</label>
+                      <select class="form-select" id="entry" name="entry" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                  </div>
           
-                      <!-- SERVICE START DAY -->
-                      <div class="col-md-4">
-                          <label for="servicestartday" class="form-label">Service Start Day</label>
-                          <input type="date" class="form-control" id="servicestartday" name="servicestartday" required />
-                      </div>
+                  <!-- HALLBATH -->
+                  <div class="col-md-4">
+                      <label for="hallbath" class="form-label">Hallbath</label>
+                      <select class="form-select" id="hallbath" name="hallbath" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                  </div>
           
-                      <!-- WINDOW OF ARRIVAL -->
-                      <div class="col-md-4">
-                          <label for="windowOfArrival" class="form-label">Window of Arrival</label>
-                          <select class="form-select" id="windowOfArrival" name="windowOfArrival" required>
-                              <option value="" selected disabled>Choose...</option>
-                              <option value="morning">Morning</option>
-                              <option value="afternoon">Afternoon</option>
-                              <option value="night">Night</option>
-                          </select>
-                      </div>
+                  <!-- LANDRY -->
+                  <div class="col-md-4">
+                      <label for="landry" class="form-label">Landry</label>
+                      <select class="form-select" id="landry" name="landry" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                  </div>
           
-                      <!-- SQUARE FOOTAGE -->
-                      <div class="col-md-4">
-                          <label for="squareFootage" class="form-label">Square Footage</label>
-                          <input type="number" class="form-control" id="squareFootage" name="squareFootage" placeholder="#" required />
-                      </div>
+                  <!-- Continuación de otros campos ya existentes -->
           
-                      <!-- NUMBER OF BATHROOMS -->
-                      <div class="col-md-4">
-                          <label for="bathrooms" class="form-label">Number of Bathrooms</label>
-                          <input type="number" class="form-control" id="bathrooms" name="bathrooms" placeholder="#" required />
-                      </div>
+                  <!-- PETS -->
+                  <div class="col-md-4">
+                      <label for="pets" class="form-label">Pets</label>
+                      <input type="text" class="form-control" id="pets" name="pets" placeholder="Pets" required />
+                  </div>
           
-                      <!-- NUMBER OF BEDROOMS -->
-                      <div class="col-md-4">
-                          <label for="bedrooms" class="form-label">Number of Bedrooms</label>
-                          <input type="number" class="form-control" id="bedrooms" name="bedrooms" placeholder="#" required />
-                      </div>
+                  <!-- KEY RECEIVED -->
+                  <div class="col-md-4">
+                      <label for="key" class="form-label">Key Received</label>
+                      <select class="form-select" id="key" name="key" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                      </select>
+                  </div>
           
-                      <!-- FREQUENCY OF SERVICE -->
-                      <div class="col-md-4">
-                          <label for="frequency" class="form-label">Frequency of Service</label>
-                          <input type="text" class="form-control" id="frequency" name="frequency" placeholder="Frequency" required />
-                      </div>
+                  <!-- PREFERRED SERVICE DAY -->
+                  <div class="col-md-4">
+                      <label for="serviceday" class="form-label">Preferred Service Day</label>
+                      <select class="form-select" id="serviceday" name="serviceday" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="monday">Monday</option>
+                          <option value="tuesday">Tuesday</option>
+                          <option value="wednesday">Wednesday</option>
+                          <option value="thursday">Thursday</option>
+                          <option value="friday">Friday</option>
+                          <option value="saturday">Saturday</option>
+                          <option value="sunday">Sunday</option>
+                      </select>
+                  </div>
           
-                      <!-- SERVICE FEE -->
-                      <div class="col-md-4">
-                          <label for="servicefee" class="form-label">Service Fee</label>
-                          <input type="number" class="form-control" id="servicefee" name="servicefee" placeholder="Service Fee" required />
-                      </div>
+                  <!-- SERVICE START DAY -->
+                  <div class="col-md-4">
+                      <label for="servicestartday" class="form-label">Service Start Day</label>
+                      <input type="date" class="form-control" id="servicestartday" name="servicestartday" required />
+                  </div>
           
-                      <!-- TAX -->
-                      <div class="col-md-4">
-                          <label for="tax" class="form-label">Tax</label>
-                          <input type="number" class="form-control" id="tax" name="tax" placeholder="#" required />
-                      </div>
+                  <!-- WINDOW OF ARRIVAL -->
+                  <div class="col-md-4">
+                      <label for="windowOfArrival" class="form-label">Window of Arrival</label>
+                      <select class="form-select" id="windowOfArrival" name="windowOfArrival" required>
+                          <option value="" selected disabled>Choose...</option>
+                          <option value="morning">Morning</option>
+                          <option value="afternoon">Afternoon</option>
+                          <option value="night">Night</option>
+                      </select>
+                  </div>
+          
+                  <!-- SQUARE FOOTAGE -->
+                  <div class="col-md-4">
+                      <label for="squareFootage" class="form-label">Square Footage</label>
+                      <input type="number" class="form-control" id="squareFootage" name="squareFootage" placeholder="#" required />
+                  </div>
+          
+                  <!-- NUMBER OF BATHROOMS -->
+                  <div class="col-md-4">
+                      <label for="bathrooms" class="form-label">Number of Bathrooms</label>
+                      <input type="number" class="form-control" id="bathrooms" name="bathrooms" placeholder="#" required />
+                  </div>
+          
+                  <!-- NUMBER OF BEDROOMS -->
+                  <div class="col-md-4">
+                      <label for="bedrooms" class="form-label">Number of Bedrooms</label>
+                      <input type="number" class="form-control" id="bedrooms" name="bedrooms" placeholder="#" required />
+                  </div>
+          
+                  <!-- FREQUENCY OF SERVICE -->
+                  <div class="col-md-4">
+                      <label for="frequency" class="form-label">Frequency of Service</label>
+                      <input type="text" class="form-control" id="frequency" name="frequency" placeholder="Frequency" required />
+                  </div>
 
-                      <!-- SUBTOTAL -->
-                      <div class="col-md-4">
-                        <label for="subtotal" class="form-label">Subtotal</label>
-                        <input type="text" class="form-control" id="subtotal" name="subtotal" value="0" disabled />
-                      </div>
-                      
-                     <!-- TOTAL -->
-                    <div class="col-md-4">
+
+                  <!-- SUBTOTAL -->
+                  <div class="col-md-4">
+                    <label for="subtotal" class="form-label">Subtotal</label>
+                    <input type="number" class="form-control" id="subtotal" name="subtotal" value="0" />
+                  </div>
+          
+                  <!-- SERVICE FEE -->
+                  <div class="col-md-4">
+                    <label for="servicefee" class="form-label">Service Fee</label>
+                    <select class="form-select" id="servicefee" name="servicefee" required>
+                      <option value="" selected disabled>Choose Payment Method</option>
+                      <option value="credit">Credit Card (3.5% fee)</option>
+                      <option value="cash">Cash</option>
+                    </select>
+                  </div>
+
+          
+                  <!-- TAX -->
+                  <div class="col-md-4">
+                      <label for="tax" class="form-label">Tax</label>
+                      <input type="number" class="form-control" id="tax" name="tax" value="0"  disabled />
+                  </div>
+          
+          
+                  <!-- TOTAL -->
+                  <div class="col-md-4">
                       <label for="total" class="form-label">Total</label>
                       <input type="text" class="form-control" id="total" name="total" value="0" disabled />
-                    </div>
-                    
-
-
                   </div>
-              
+          
+                  
+              </div>
           </section>
+          
           
           <div class="col-12">
             

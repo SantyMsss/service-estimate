@@ -1,4 +1,5 @@
 // Función para crear un nuevo combobox
+// Función para crear un nuevo combobox
 function addServiceType(event) {
   event.preventDefault();
   const container = document.getElementById("serviceTypeContainer");
@@ -17,15 +18,20 @@ function addServiceType(event) {
   newSelect.setAttribute("name", `serviceType`);
   newSelect.setAttribute("required", true);
   
+  // Añadir las nuevas opciones
   const options = `
       <option value="" selected disabled>Option</option>
-      <option value="living-room" data-price="30">Living room - $30</option>
-      <option value="kitchen" data-price="40">Kitchen - $40</option>
-      <option value="entry" data-price="30">Entry - $30</option>
-      <option value="hallbath" data-price="20">Hallbath - $20</option>
-      <option value="bedroom" data-price="50">Bedroom - $50</option>
-      <option value="bathroom" data-price="10">Bathroom - $10</option>
-      <option value="laundry" data-price="20">Laundry - $20</option>
+      <option value="basic-cleaning" >Basic Cleaning</option>
+      <option value="full-cleaning" >Full Cleaning</option>
+      <option value="office" >Office</option>
+      <option value="garage" >Garage</option>
+      <option value="living-room" >Living room</option>
+      <option value="kitchen" >Kitchen</option>
+      <option value="entry" >Entry</option>
+      <option value="hallbath" >Hallbath</option>
+      <option value="bedroom" >Bedroom</option>
+      <option value="bathroom" >Bathroom</option>
+      <option value="laundry" >Laundry</option>
   `;
   
   newSelect.innerHTML = options;
@@ -57,25 +63,38 @@ function removeServiceType(event) {
   }
 }
 
+
 // Función para actualizar el total
 function updateTotal() {
-  total = 0; // Reiniciar el total
-  const serviceTypes = document.querySelectorAll('select[id="serviceType"]');
+  // Obtener el subtotal del campo de entrada ingresado por el usuario
+  const subtotalInput = document.getElementById('subtotal').value;
+  const subtotal = parseFloat(subtotalInput);
 
-  serviceTypes.forEach(select => {
-      const price = select.options[select.selectedIndex]?.dataset.price;
-      if (price) {
-          total += parseFloat(price);
-      }
-  });
+ 
 
-  const tax = total * 0.20; // Calcular el 20% de tax
-  const grandTotal = total + tax; // Total = subtotal + tax
+  // Calcular el impuesto del 7%
+  const tax = subtotal * 0.075; // 7% de impuesto
+  let grandTotal = subtotal + tax; // Total = subtotal + impuesto
 
-  document.getElementById('subtotal').value = total.toFixed(2); // Actualizar el subtotal con 2 decimales
-  document.getElementById('tax').value = tax.toFixed(2); // Actualizar el tax con 2 decimales
-  document.getElementById('total').value = grandTotal.toFixed(2); // Actualizar el total con 2 decimales
+  // Verificar si el método de pago es con tarjeta de crédito y agregar el 3.5% al total
+  const serviceFeeSelect = document.getElementById('servicefee');
+  const serviceFee = serviceFeeSelect.value;
+  if (serviceFee === "credit") {
+    const creditFee = subtotal * 0.035; // 3.5% del subtotal
+    grandTotal += creditFee; // Sumar el fee al total
+  }
+
+  // Actualizar los valores en los campos del formulario
+  document.getElementById('tax').value = tax.toFixed(2); // Actualizar el impuesto
+  document.getElementById('total').value = grandTotal.toFixed(2); // Actualizar el total
 }
+
+// Evento para detectar cambios en el subtotal
+document.getElementById('subtotal').addEventListener('input', updateTotal);
+
+
+// Evento para detectar cambios en el método de pago
+document.getElementById('servicefee').addEventListener('change', updateTotal);
 
 // Agregar eventos a los botones
 document.getElementById("addServiceButton").addEventListener("click", addServiceType);
@@ -86,6 +105,8 @@ const firstSelect = document.querySelector('select[id="serviceType"]');
 if (firstSelect) {
   firstSelect.addEventListener('change', updateTotal);
 }
+
+
 
 
 document.getElementById('generatePdfBtn').addEventListener('click', function () {
@@ -110,6 +131,11 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const attendant = document.getElementById('attendant').value;
 
   // Capturar los detalles del servicio
+  const livingRoom = document.getElementById('livingRoom').value;
+  const kitchen = document.getElementById('kitchen').value;
+  const entry = document.getElementById('entry').value;
+  const hallbath = document.getElementById('hallbath').value;
+  const landry = document.getElementById('landry').value;
   const pets = document.getElementById('pets').value;
   const keyReceived = document.getElementById('key').options[document.getElementById('key').selectedIndex].text;
   const preferredServiceDay = document.getElementById('serviceday').options[document.getElementById('serviceday').selectedIndex].text;
@@ -119,24 +145,37 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const bathrooms = document.getElementById('bathrooms').value;
   const bedrooms = document.getElementById('bedrooms').value;
   const frequency = document.getElementById('frequency').value;
-  const serviceFee = document.getElementById('servicefee').value;
 
   // Capturar el subtotal, tax y total
   const subtotal = document.getElementById('subtotal').value;
   const tax = document.getElementById('tax').value;
   const total = document.getElementById('total').value;
 
-  // Capturar todos los servicios seleccionados
-  const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
-  let servicesText = '';
-  serviceTypes.forEach((service, index) => {
-    const serviceName = service.options[service.selectedIndex].text;
-    servicesText += `${index + 1}. ${serviceName}\n`;
-  });
+   // Capturar todos los servicios seleccionados
+   const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
+   let servicesText = '';
+   serviceTypes.forEach((service, index) => {
+     const serviceName = service.options[service.selectedIndex].text;
+     servicesText += `${index + 1}. ${serviceName}\n`;
+   });
+
+
+   // Verificar el método de pago y calcular el fee si es con tarjeta de crédito
+  const serviceFeeSelect = document.getElementById('servicefee');
+  const serviceFee = serviceFeeSelect.value;
+  let serviceFeeAmount = 0;
+  if (serviceFee === "credit") {
+    serviceFeeAmount = (parseFloat(subtotal)) * 0.035; // 3.5% del subtotal 
+  }
+
+  // Generar los textos del PDF
+  const serviceFeeText = serviceFee === "credit" ? `3.5% fee` : `Cash`;
+  const serviceFeeAmountText = serviceFee === "credit" ? serviceFeeAmount.toFixed(2) : '0.00';
+
 
   // Cargar la imagen base
   const img = new Image();
-  img.src = 'img/inv2.png'; // Cambia la ruta si es necesario
+  img.src = 'img/inv3.png'; // Cambia la ruta si es necesario
 
   img.onload = function () {
     // Añadir la imagen al PDF
@@ -154,21 +193,34 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Zip: ${zip}`, 120, 85);
     doc.text(`Time: ${time}`, 120, 90);
     doc.text(`Attendant: ${attendant}`, 120, 95);
-    doc.text(servicesText, 20, 140);
-    doc.text(`Pets: ${pets}`, 20, 220);
-    doc.text(`Key Received: ${keyReceived}`, 20, 225);
-    doc.text(`Preferred Service Day: ${preferredServiceDay}`, 20, 230);
-    doc.text(`Service Start Day: ${serviceStartDay}`, 20, 235);
-    doc.text(`Window of Arrival: ${windowOfArrival}`, 20, 240);
-    doc.text(`Square Footage: ${squareFootage}`, 20, 245);
-    doc.text(`Bathrooms: ${bathrooms}`, 120, 220);
-    doc.text(`Bedrooms: ${bedrooms}`, 120, 225);
-    doc.text(`Frequency of Service: ${frequency}`, 120, 230);
-    doc.text(`Service Fee: $${serviceFee}`, 120, 235);
-    doc.text(`Subtotal: $${subtotal}`, 120, 240); // Mostrar el subtotal en el PDF
-    doc.text(`Tax: $${tax}`, 120, 245); // Mostrar el tax en el PDF
-    doc.text(`$${total}`, 142, 253); // Mostrar el total en el PDF
 
+    // Añadir los detalles del servicio
+    doc.text(`Living Room: ${livingRoom}`, 20, 140);
+    doc.text(`Kitchen: ${kitchen}`, 20, 145);
+    doc.text(`Entry: ${entry}`, 20, 150);
+    doc.text(`Hallbath: ${hallbath}`, 20, 155);
+    doc.text(`Landry: ${landry}`, 20, 160);
+    doc.text(`Pets: ${pets}`, 20, 165);
+    doc.text(`Key Received: ${keyReceived}`, 20, 170);
+    doc.text(`Preferred Service Day: ${preferredServiceDay}`, 20, 175);
+    doc.text(`Service Start Day: ${serviceStartDay}`, 20, 180);
+    doc.text(`Window of Arrival: ${windowOfArrival}`, 20, 185);
+
+    doc.text(servicesText, 20, 220); // Añadir los servicios seleccionados
+
+    // Añadir los textos relacionados con los valores adicionales
+    doc.text(`Square Footage: ${squareFootage}`, 120, 140);
+    doc.text(`Bathrooms: ${bathrooms}`, 120, 145);
+    doc.text(`Bedrooms: ${bedrooms}`, 120, 150);
+    doc.text(`Frequency of Service: ${frequency}`, 120, 155);
+   
+    
+    doc.text(`Subtotal: $${subtotal}`, 120, 220);
+    doc.text(`Tax: $${tax}`, 120, 225);
+    doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 230); // Mostrar el 3.5% si aplica
+    doc.text(`$${total}`, 142, 253);
+
+    // Guardar el PDF
     doc.save(`invoice_${customer}_${estimateDate}.pdf`);
   };
 });
