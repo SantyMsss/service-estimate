@@ -65,11 +65,12 @@ function removeServiceType(event) {
 
 
 // Función para actualizar el total
+let creditFee = 0; // Variable global para almacenar el fee de tarjeta de crédito
+
 function updateTotal() {
   // Obtener el subtotal ingresado por el usuario
   const subtotalInput = document.getElementById('subtotal').value;
   let subtotal = parseFloat(subtotalInput);
-
 
   // Obtener el porcentaje de descuento seleccionado
   const discountSelect = document.getElementById('discount');
@@ -87,13 +88,16 @@ function updateTotal() {
   const serviceFeeSelect = document.getElementById('servicefee');
   const serviceFee = serviceFeeSelect.value;
   if (serviceFee === "credit") {
-    const creditFee = subtotal * 0.035; // 3.5% del subtotal
+    creditFee = subtotal * 0.035; // 3.5% del subtotal
     grandTotal += creditFee; // Sumar el fee al total
+  } else {
+    creditFee = 0; // Resetear el fee si no es con tarjeta de crédito
   }
 
   // Actualizar los valores en los campos del formulario
   document.getElementById('tax').value = tax.toFixed(2); // Actualizar el impuesto
   document.getElementById('total').value = grandTotal.toFixed(2); // Actualizar el total
+  document.getElementById('creditFee').value = creditFee.toFixed(2); // Mostrar el fee si es con tarjeta de crédito
 }
 
 // Evento para detectar cambios en el subtotal
@@ -161,17 +165,21 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const tax = document.getElementById('tax').value;
   const total = document.getElementById('total').value;
 
-  // Capturar el descuento
+  // Capturar el porcentaje de descuento seleccionado
   const discountSelect = document.getElementById('discount');
   const discountPercentage = parseFloat(discountSelect.value);
+
+
   const discountAmount = subtotal * (discountPercentage / 100);
 
    // Capturar todos los servicios seleccionados
    const serviceTypes = document.querySelectorAll('.service-type-wrapper select');
    let servicesText = '';
    serviceTypes.forEach((service, index) => {
+
      const serviceName = service.options[service.selectedIndex].text;
      servicesText += `${index + 1}. ${serviceName}\n`;
+     
    });
 
 
@@ -185,7 +193,8 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
 
   // Generar los textos del PDF
   const serviceFeeText = serviceFee === "credit" ? `3.5% fee` : `Cash`;
-  const serviceFeeAmountText = serviceFee === "credit" ? serviceFeeAmount.toFixed(2) : '0.00';
+  const serviceFeeAmountText = creditFee.toFixed(2); // Usar el valor calculado del service fee
+  
 
 
   // Cargar la imagen base
@@ -231,8 +240,8 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
    
     doc.text(`Discount (${discountPercentage}%): -$${discountAmount.toFixed(2)}`, 120, 225); // Mostrar el descuento
     doc.text(`Subtotal: $${subtotal}`, 120, 220);
-    doc.text(`Tax: $${tax}`, 120, 230);
-    doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 235); // Mostrar el 3.5% si aplica
+    doc.text(`Tax: $${tax}`, 120, 235);
+    doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 240); // Mostrar el 3.5% si aplica
     doc.text(`$${total}`, 142, 253);
 
     // Guardar el PDF
