@@ -217,11 +217,11 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Customer: ${customer}`, 20, 80);
     doc.text(`Address: ${address}`, 20, 85);
     doc.text(`City: ${city}`, 20, 90);
-    doc.text(`Phone: ${phone}`, 20, 95);
-    doc.text(`Email: ${email}`, 20, 100);
-    doc.text(`Estimate Date: ${estimateDate}`, 20, 105);
-    doc.text(`Lead Source: ${leadSource}`, 120, 80);
-    doc.text(`Zip: ${zip}`, 120, 85);
+    doc.text(`Zip: ${zip}`, 20, 95);
+    doc.text(`Phone: ${phone}`, 20, 100);
+    doc.text(`Email: ${email}`, 20, 105);
+    doc.text(`Estimate Date: ${estimateDate}`, 120, 80);
+    doc.text(`Lead Source: ${leadSource}`, 120, 85);
     doc.text(`Time: ${time}`, 120, 90);
     doc.text(`Attendant: ${attendant}`, 120, 95);
 
