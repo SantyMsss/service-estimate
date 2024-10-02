@@ -206,7 +206,7 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
 
   // Cargar la imagen base
   const img = new Image();
-  img.src = 'img/estimate1.png'; // Cambia la ruta si es necesario
+  img.src = 'img/inv4.png'; // Cambia la ruta si es necesario
 
   img.onload = function () {
     // Añadir la imagen al PDF
