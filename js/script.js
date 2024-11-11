@@ -245,10 +245,7 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Lead Source: ${leadSource}`, 120, 85);
     doc.text(`Time: ${time}`, 120, 90);
     doc.text(`Attendant: ${attendant}`, 120, 95);
-    doc.text(`Additional Comments:`, 20, 112);
-    doc.setFontSize(11);
-    const commentsLines = doc.splitTextToSize(comments, 170); // Ajusta el ancho según sea necesario
-    doc.text(commentsLines, 20, 115);
+    
 
     // Añadir los detalles del servicio
     doc.text(`Living Room: ${livingRoom}`, 20, 140);
@@ -275,6 +272,10 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Tax: $${tax}`, 120, 235);
     doc.text(`Service Fee (${serviceFeeText}): $${serviceFeeAmountText}`, 120, 240); // Mostrar el 3.5% si aplica
     doc.text(`$${total}`, 142, 253);
+    doc.text(`Additional Comments:`, 20, 255);
+    doc.setFontSize(11);
+    const commentsLines = doc.splitTextToSize(comments, 170); // Ajusta el ancho según sea necesario
+    doc.text(commentsLines, 20, 262);
 
     // Guardar el PDF
     doc.save(`estimate_${customer}_${estimateDate}.pdf`);
