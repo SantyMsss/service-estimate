@@ -1,5 +1,4 @@
 // Función para crear un nuevo combobox
-// Función para crear un nuevo combobox
 function addServiceType(event) {
   event.preventDefault();
   const container = document.getElementById("serviceTypeContainer");
@@ -128,6 +127,26 @@ if (firstSelect) {
 }
 
 
+// Función para dividir texto en líneas de un ancho específico
+function splitText(text, maxLength) {
+  const lines = [];
+  let currentLine = "";
+
+  text.split(" ").forEach(word => {
+    if ((currentLine + word).length > maxLength) {
+      lines.push(currentLine.trim());
+      currentLine = word + " ";
+    } else {
+      currentLine += word + " ";
+    }
+  });
+
+  if (currentLine.trim().length > 0) {
+    lines.push(currentLine.trim());
+  }
+
+  return lines;
+}
 
 
 document.getElementById('generatePdfBtn').addEventListener('click', function () {
@@ -150,6 +169,8 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
   const zip = document.getElementById('zip').value;
   const time = document.getElementById('time').value;
   const attendant = document.getElementById('attendant').value;
+  const comments = document.getElementById('comments').value;
+  const commentsLines = splitText(comments, 70); 
 
   // Capturar los detalles del servicio
   const livingRoom = document.getElementById('livingRoom').value;
@@ -224,6 +245,10 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
     doc.text(`Lead Source: ${leadSource}`, 120, 85);
     doc.text(`Time: ${time}`, 120, 90);
     doc.text(`Attendant: ${attendant}`, 120, 95);
+    doc.text(`Additional Comments:`, 20, 112);
+    doc.setFontSize(11);
+    const commentsLines = doc.splitTextToSize(comments, 170); // Ajusta el ancho según sea necesario
+    doc.text(commentsLines, 20, 115);
 
     // Añadir los detalles del servicio
     doc.text(`Living Room: ${livingRoom}`, 20, 140);
@@ -257,6 +282,25 @@ document.getElementById('generatePdfBtn').addEventListener('click', function () 
 });
 
 
+// Función para dividir el texto de comentarios en líneas de un tamaño especificado
+function formatText(text, maxLineLength) {
+  const words = text.split(' ');
+  let lines = [];
+  let currentLine = '';
+
+  words.forEach(word => {
+    if ((currentLine + word).length > maxLineLength) {
+      lines.push(currentLine);
+      currentLine = word + ' ';
+    } else {
+      currentLine += word + ' ';
+    }
+  });
+
+  if (currentLine) lines.push(currentLine); // Añadir la última línea
+
+  return lines.join('\n'); // Unir las líneas con saltos de línea
+}
 
 
 
